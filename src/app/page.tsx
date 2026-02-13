@@ -26,7 +26,7 @@ export default function Home() {
             onClick={() => setRevealed(true)}
             className="px-8 py-3 text-lg font-semibold text-white bg-gradient-to-r from-pink-500 to-rose-500 rounded-xl hover:from-pink-600 hover:to-rose-600 transform hover:scale-105 transition-all duration-300 shadow-lg"
           >
-            Reveal Clue
+            Reveal Next Clue
           </button>
         ) : (
           <blockquote className="text-white/90 text-lg lg:text-xl italic font-display leading-relaxed">

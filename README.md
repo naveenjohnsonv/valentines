@@ -11,7 +11,7 @@ An interactive Valentine's game built with Next.js. Hide 6 NFC tags around your 
 
 ## Branches
 
-- `anna` — Full game (collect, order, proposal)
+- `main` — Full game (collect, order, proposal)
 - `clue-pages` — Stripped-down single clue + letter page template for NFC tag destinations
 
 ## Setup

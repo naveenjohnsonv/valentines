@@ -1,83 +1,41 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import LetterCollectGame from "@/components/LetterCollectGame";
-import LetterOrderGame from "@/components/LetterOrderGame";
-import ValentinesProposal from "@/components/ValentinesProposal";
-import TextFooter from "@/components/TextFooter";
-import OrientationGuard from "@/components/OrientationGuard";
+import { useState } from "react";
 
-const ANIM_DURATION = 0.5;
-
-type Phase = "collect" | "order" | "proposal";
+const CLUE = "Your clue goes here — replace with the real clue for this tag.";
+const LETTER = "X";
 
 export default function Home() {
-  const [phase, setPhase] = useState<Phase>("collect");
-  const [isTransitioning, setIsTransitioning] = useState(false);
-
-  const handleLettersComplete = useCallback(() => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setPhase("order");
-      setIsTransitioning(false);
-    }, ANIM_DURATION * 1000);
-  }, []);
-
-  const handleOrderComplete = useCallback(() => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setPhase("proposal");
-      setIsTransitioning(false);
-    }, ANIM_DURATION * 1000);
-  }, []);
+  const [revealed, setRevealed] = useState(false);
 
   return (
-    <OrientationGuard>
-      <main className="flex items-center justify-center min-h-screen bg-black overflow-hidden relative">
-        <AnimatePresence mode="wait">
-          {phase === "collect" && (
-            <motion.div
-              key="collect"
-              initial={{ opacity: 1 }}
-              animate={{ opacity: isTransitioning ? 0 : 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: ANIM_DURATION }}
-              className="flex flex-col items-center"
-            >
-              <LetterCollectGame onComplete={handleLettersComplete} />
-              <div className="mt-4 md:mt-0">
-                <TextFooter phase="collect" />
-              </div>
-            </motion.div>
-          )}
-          {phase === "order" && (
-            <motion.div
-              key="order"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: isTransitioning ? 0 : 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: ANIM_DURATION }}
-              className="flex flex-col items-center"
-            >
-              <LetterOrderGame onComplete={handleOrderComplete} />
-              <div className="mt-4 md:mt-0">
-                <TextFooter phase="order" />
-              </div>
-            </motion.div>
-          )}
-          {phase === "proposal" && (
-            <motion.div
-              key="proposal"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: ANIM_DURATION }}
-            >
-              <ValentinesProposal />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </main>
-    </OrientationGuard>
+    <main className="flex items-center justify-center min-h-screen bg-black px-6">
+      <div className="max-w-lg w-full text-center space-y-8">
+        <blockquote className="text-white/90 text-lg lg:text-xl italic font-display leading-relaxed">
+          &ldquo;{CLUE}&rdquo;
+        </blockquote>
+
+        {!revealed ? (
+          <button
+            onClick={() => setRevealed(true)}
+            className="px-8 py-3 text-lg font-semibold text-white bg-gradient-to-r from-pink-500 to-rose-500 rounded-xl hover:from-pink-600 hover:to-rose-600 transform hover:scale-105 transition-all duration-300 shadow-lg"
+          >
+            Reveal Letter
+          </button>
+        ) : (
+          <div className="space-y-3">
+            <p className="text-gray-400 text-sm">Your letter is</p>
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl border-2 border-pink-500 bg-pink-500/10">
+              <span className="text-4xl font-bold text-pink-400 font-display">
+                {LETTER}
+              </span>
+            </div>
+            <p className="text-gray-500 text-xs mt-4">
+              Remember this letter!
+            </p>
+          </div>
+        )}
+      </div>
+    </main>
   );
 }

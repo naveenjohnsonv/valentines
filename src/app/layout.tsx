@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Valentine's NFC Tag Hunt",
-  description: "Hunt the tags, collect the letters, and discover the surprise.",
+  title: "Valentine's Clue Hunt",
+  description: "Find the clues, collect the letters.",
 };
 
 export default function RootLayout({
